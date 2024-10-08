@@ -2,6 +2,7 @@ package jogoDaVelha;
 
 import java.awt.EventQueue;
 import javax.swing.JFrame;
+import javax.swing.UIManager;
 
 public class Janela extends JFrame {
 
@@ -12,6 +13,7 @@ public class Janela extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
+					UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
 					frame = new Janela();
 					frame.setVisible(true);
 				} catch (Exception e) {
@@ -23,12 +25,14 @@ public class Janela extends JFrame {
 
 	public Janela() {
 		initComponents();
-		// this.setContentPane(new TelaInicial());
+		this.setContentPane(new TelaInicial());
 	}
 
 	public void initComponents() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 640, 480);
+		setBounds(100, 100, 500, 500);
+		setLocationRelativeTo(null);
+
 	}
 
 }
