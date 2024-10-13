@@ -32,7 +32,7 @@ public class TelaJogo extends JPanel {
 	private void initComponents() {
 		setBackground(Color.LIGHT_GRAY);
 		setLayout(new MigLayout("", "[50px][grow][grow][50px]", "[50px][][grow][][50px]"));
-		setBounds(100, 100, 500, 500);
+		setBounds(100, 100, 800, 600);
 		add(this.lblJogador, "cell 1 1,growx");
 		this.lblJogador.setOpaque(true);
 		add(this.lblNewLabel, "cell 2 1,growx");

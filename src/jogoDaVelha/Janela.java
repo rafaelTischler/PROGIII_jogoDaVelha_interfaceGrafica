@@ -30,8 +30,9 @@ public class Janela extends JFrame {
 
 	public void initComponents() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 500, 500);
+		setBounds(100, 100, 800, 600);
 		setLocationRelativeTo(null);
+		setResizable(false);
 
 	}
 
