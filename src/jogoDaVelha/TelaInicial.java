@@ -7,7 +7,6 @@ import javax.swing.JLabel;
 import java.awt.Font;
 import java.awt.Image;
 import java.awt.Graphics;
-
 import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
@@ -27,6 +26,7 @@ public class TelaInicial extends JPanel {
 	private final JButton btn_jogar = new JButton("JOGAR");
 	private final JButton btn_sair = new JButton("SAIR");
 	private Image background;
+	private final JLabel lbl_o = new JLabel("");
 
 	public TelaInicial() {
 		try {
@@ -45,21 +45,24 @@ public class TelaInicial extends JPanel {
 
 	private void initComponents() {
 		setBounds(100, 100, 800, 600);
-		setBackground(new Color(234, 228, 221));
+		setBackground(new Color(245, 239, 231));
 		setLayout(new MigLayout("", "[grow][grow][grow]", "[grow][grow][grow]"));
+
+		add(this.lbl_o, "cell 0 1,grow");
 		this.panel.setOpaque(false);
 		this.panel.setBackground(new Color(205, 194, 165));
 
 		add(this.panel, "cell 1 1,grow");
 		this.panel.setLayout(new MigLayout("", "[grow][][grow]", "[grow][][grow][][grow][][grow]"));
-		this.lbl_jogo.setForeground(Color.WHITE);
+		this.lbl_jogo.setForeground(new Color(115, 145, 185));
 		this.lbl_jogo.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 60));
 
 		this.panel.add(this.lbl_jogo, "flowy,cell 1 1,alignx center,aligny bottom");
+		this.btn_jogar.setOpaque(false);
+		this.btn_jogar.setBackground(new Color(245, 239, 231));
 		this.btn_jogar.setMargin(new Insets(2, 10, 2, 10));
 		this.btn_jogar.setAlignmentX(Component.CENTER_ALIGNMENT);
-		this.btn_jogar.setOpaque(false);
-		this.btn_jogar.setForeground(Color.DARK_GRAY);
+		this.btn_jogar.setForeground(new Color(79, 112, 156));
 		this.btn_jogar.setFocusPainted(false);
 		this.btn_jogar.setFocusTraversalKeysEnabled(false);
 		this.btn_jogar.setFocusable(false);
@@ -71,14 +74,14 @@ public class TelaInicial extends JPanel {
 				abreTelaMenu();
 			}
 		});
-		this.btn_jogar.setFont(new Font("Segoe UI Semibold", Font.BOLD, 22));
+		this.btn_jogar.setFont(new Font("Segoe UI", Font.BOLD, 22));
 
 		this.panel.add(this.btn_jogar, "cell 1 3,alignx center,aligny center");
 		this.btn_sair.setContentAreaFilled(false);
 		this.btn_sair.setMinimumSize(new Dimension(45, 20));
-		this.btn_sair.setMaximumSize(new Dimension(50, 25));
+		this.btn_sair.setMaximumSize(new Dimension(60, 25));
 		this.btn_sair.setMargin(new Insets(2, 5, 2, 5));
-		this.btn_sair.setForeground(Color.DARK_GRAY);
+		this.btn_sair.setForeground(new Color(115, 145, 185));
 		this.btn_sair.setRequestFocusEnabled(false);
 		this.btn_sair.setOpaque(false);
 		this.btn_sair.setFocusPainted(false);
@@ -92,10 +95,10 @@ public class TelaInicial extends JPanel {
 				Runtime.getRuntime().exit(0);
 			}
 		});
-		this.btn_sair.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 16));
+		this.btn_sair.setFont(new Font("Segoe UI", Font.BOLD, 18));
 
 		this.panel.add(this.btn_sair, "cell 1 5,alignx center,aligny center");
-		this.lbl_velha.setForeground(Color.WHITE);
+		this.lbl_velha.setForeground(new Color(79, 112, 156));
 		this.lbl_velha.setFont(new Font("Segoe UI Black", Font.PLAIN, 90));
 
 		this.panel.add(this.lbl_velha, "cell 1 1,alignx center,aligny top");
@@ -106,20 +109,20 @@ public class TelaInicial extends JPanel {
 	private void efeitoMouseOver() {
 		btn_jogar.addMouseListener(new java.awt.event.MouseAdapter() {
 			public void mouseEntered(java.awt.event.MouseEvent evento) {
-				btn_jogar.setForeground(new Color(41, 95, 152));
+				btn_jogar.setForeground(new Color(115, 145, 185));
 			}
 
 			public void mouseExited(java.awt.event.MouseEvent evento) {
-				btn_jogar.setForeground(Color.DARK_GRAY);
+				btn_jogar.setForeground(new Color(79, 112, 156));
 			}
 		});
 		btn_sair.addMouseListener(new java.awt.event.MouseAdapter() {
 			public void mouseEntered(java.awt.event.MouseEvent evento) {
-				btn_sair.setForeground(Color.RED);
+				btn_sair.setForeground(new Color(145, 168, 200));
 			}
 
 			public void mouseExited(java.awt.event.MouseEvent evento) {
-				btn_sair.setForeground(Color.DARK_GRAY);
+				btn_sair.setForeground(new Color(115, 145, 185));
 			}
 		});
 	}
