@@ -3,80 +3,95 @@ package jogoDaVelha;
 import javax.swing.JPanel;
 import net.miginfocom.swing.MigLayout;
 import java.awt.Color;
-import java.util.LinkedList;
+import java.awt.Graphics;
+import java.awt.Image;
+import java.io.IOException;
+import javax.imageio.ImageIO;
 import javax.swing.JLabel;
-import javax.swing.JButton;
 
 public class TelaJogo extends JPanel {
-
 	private static final long serialVersionUID = 1L;
-	private final JPanel panel = new JPanel();
-	private final JLabel lblNewLabel_2 = new JLabel("");
-	private final JLabel lblNewLabel_3 = new JLabel("");
-	private final JLabel lblNewLabel_4 = new JLabel("");
-	private final JLabel lblNewLabel_5 = new JLabel("");
-	private final JLabel lblNewLabel_6 = new JLabel("");
-	private final JLabel lblNewLabel_7 = new JLabel("");
-	private final JLabel lblNewLabel_8 = new JLabel("");
-	private final JLabel lblNewLabel_9 = new JLabel("");
-	private final JLabel lblNewLabel_10 = new JLabel("");
-	private final JLabel lblJogador = new JLabel("Jogador: ");
-	private final JLabel lblNewLabel = new JLabel("Computador: ");
-	private final JButton btnNewButton = new JButton("Desfazer");
-	// private LinkedList<JLabel> listaBotoes = new LinkedList<JLabel>();
+	private JPanel painel;
+	private final JLabel lbl_11 = new JLabel("");
+	private final JLabel lbl_12 = new JLabel("");
+	private final JLabel lbl_13 = new JLabel("");
+	private final JLabel lbl_21 = new JLabel("");
+	private final JLabel lbl_22 = new JLabel("");
+	private final JLabel lbl_23 = new JLabel("");
+	private final JLabel lbl_31 = new JLabel("");
+	private final JLabel lbl_32 = new JLabel("");
+	private final JLabel lbl_33 = new JLabel("");
+	private Image background;
 
 	public TelaJogo() {
+		if (!java.beans.Beans.isDesignTime()) {
+			try {
+				background = ImageIO.read(getClass().getResource("background_clear.png"));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			painel = new PainelTabela("/jogoDaVelha/asset_table2.png");
+		} else {
+			painel = new JPanel();
+		}
 		initComponents();
 	}
 
-	private void initComponents() {
-		setBackground(Color.LIGHT_GRAY);
-		setLayout(new MigLayout("", "[50px][grow][grow][50px]", "[50px][][grow][][50px]"));
-		setBounds(100, 100, 800, 600);
-		add(this.lblJogador, "cell 1 1,growx");
-		this.lblJogador.setOpaque(true);
-		add(this.lblNewLabel, "cell 2 1,growx");
-		this.lblNewLabel.setOpaque(true);
-		add(this.panel, "cell 1 2 2 1,grow");
-		this.panel.setLayout(new MigLayout("", "[25px][100px][100px][100px][25px]", "[25px][100px][100px][100px][25px]"));
-		this.lblNewLabel_2.setRequestFocusEnabled(false);
-		this.lblNewLabel_2.setOpaque(true);
-		this.lblNewLabel_2.setBackground(Color.GRAY);
-		this.panel.add(this.lblNewLabel_2, "cell 1 1,grow");
-		this.lblNewLabel_3.setRequestFocusEnabled(false);
-		this.lblNewLabel_3.setBackground(Color.GRAY);
-		this.lblNewLabel_3.setOpaque(true);
-		this.panel.add(this.lblNewLabel_3, "cell 2 1,grow");
-		this.lblNewLabel_4.setRequestFocusEnabled(false);
-		this.lblNewLabel_4.setBackground(Color.GRAY);
-		this.lblNewLabel_4.setOpaque(true);
-		this.panel.add(this.lblNewLabel_4, "cell 3 1,grow");
-		this.lblNewLabel_5.setRequestFocusEnabled(false);
-		this.lblNewLabel_5.setBackground(Color.GRAY);
-		this.lblNewLabel_5.setOpaque(true);
-		this.panel.add(this.lblNewLabel_5, "cell 1 2,grow");
-		this.lblNewLabel_6.setRequestFocusEnabled(false);
-		this.lblNewLabel_6.setBackground(Color.GRAY);
-		this.lblNewLabel_6.setOpaque(true);
-		this.panel.add(this.lblNewLabel_6, "cell 2 2,grow");
-		this.lblNewLabel_7.setRequestFocusEnabled(false);
-		this.lblNewLabel_7.setBackground(Color.GRAY);
-		this.lblNewLabel_7.setOpaque(true);
-		this.panel.add(this.lblNewLabel_7, "cell 3 2,grow");
-		this.lblNewLabel_8.setRequestFocusEnabled(false);
-		this.lblNewLabel_8.setBackground(Color.GRAY);
-		this.lblNewLabel_8.setOpaque(true);
-		this.panel.add(this.lblNewLabel_8, "cell 1 3,grow");
-		this.lblNewLabel_9.setRequestFocusEnabled(false);
-		this.lblNewLabel_9.setBackground(Color.GRAY);
-		this.lblNewLabel_9.setOpaque(true);
-		this.panel.add(this.lblNewLabel_9, "cell 2 3,grow");
-		this.lblNewLabel_10.setRequestFocusEnabled(false);
-		this.lblNewLabel_10.setBackground(Color.GRAY);
-		this.lblNewLabel_10.setOpaque(true);
-		this.panel.add(this.lblNewLabel_10, "cell 3 3,grow");
-		this.panel.add(this.btnNewButton, "cell 2 4,alignx center");
-		this.btnNewButton.setOpaque(false);
+	@Override
+	protected void paintComponent(Graphics g) {
+		super.paintComponent(g);
+		if (!java.beans.Beans.isDesignTime() && background != null) {
+			g.drawImage(background, 0, 0, getWidth(), getHeight(), this);
+		}
 	}
 
+	private void initComponents() {
+		setBackground(new Color(245, 239, 231));
+		setLayout(new MigLayout("", "[grow][][grow]", "[grow][][grow]"));
+		setBounds(100, 100, 800, 600);
+		painel.setOpaque(false);
+		add(painel, "cell 1 1,grow");
+		painel.setLayout(new MigLayout("", "[120px,grow][120px,grow][120px,grow]", "[120px,grow][120px,grow][120px,grow]"));
+		lbl_11.setName("1,1");
+		painel.add(lbl_11, "cell 0 0,grow");
+		lbl_12.setName("1,2");
+		painel.add(lbl_12, "cell 1 0,grow");
+		lbl_13.setName("1,3");
+		painel.add(lbl_13, "cell 2 0,grow");
+		lbl_21.setName("2,1");
+		painel.add(lbl_21, "cell 0 1,grow");
+		lbl_22.setName("2,2");
+		painel.add(lbl_22, "cell 1 1,grow");
+		lbl_23.setName("2,3");
+		painel.add(lbl_23, "cell 2 1,grow");
+		lbl_31.setName("3,1");
+		painel.add(lbl_31, "cell 0 2,grow");
+		lbl_32.setName("3,2");
+		painel.add(lbl_32, "cell 1 2,grow");
+		lbl_33.setName("3,3");
+		painel.add(lbl_33, "cell 2 2,grow");
+	}
+
+	public class PainelTabela extends JPanel {
+		private static final long serialVersionUID = 1L;
+		private Image backgroundImage;
+
+		public PainelTabela(String imagePath) {
+			if (!java.beans.Beans.isDesignTime()) {
+				try {
+					backgroundImage = ImageIO.read(getClass().getResource(imagePath));
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+
+		@Override
+		protected void paintComponent(Graphics g) {
+			super.paintComponent(g);
+			if (!java.beans.Beans.isDesignTime() && backgroundImage != null) {
+				g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
+			}
+		}
+	}
 }
