@@ -8,12 +8,12 @@ public class Jogador {
 
 	public Jogador(String nome, String simbolo, Tabuleiro tab) {
 		if (!this.testaNome(nome)) {
-			throw new IllegalArgumentException("Por favor, digite seu nome!");
+			throw new IllegalArgumentException("Por favor, DIGITE SEU NOME!");
 		} else {
 			this.nome = nome;
 		}
 		if (!this.testaSimbolo(simbolo)) {
-			throw new IllegalArgumentException("Digite um símbolo válido (X ou O)");
+			throw new IllegalArgumentException("Digite um SÍMBOLO VÁLIDO (X ou O)");
 		} else {
 			this.simbolo = simbolo;
 		}
@@ -50,7 +50,7 @@ public class Jogador {
 
 	public boolean setSimbolo(String simbolo) {
 		if (!this.testaSimbolo(simbolo)) {
-			System.out.println("\t*Digite um símbolo válido (X ou O)*");
+			System.out.println("\t*Digite um SIMBOLO VÁLIDO (X ou O)*");
 			return false;
 		}
 		this.simbolo = simbolo;
@@ -67,7 +67,7 @@ public class Jogador {
 
 	public void fazerJogada(int linha, int coluna, Jogador jogador) {
 		if (this.tab == null) {
-			throw new NullPointerException("Tabuleiro não inicializado");
+			throw new NullPointerException("Tabuleiro NÃO INICIALIZADO");
 		}
 		if (tab.verificaPosicao(linha, coluna)) {
 			tab.realizaJogada(linha, coluna, jogador);

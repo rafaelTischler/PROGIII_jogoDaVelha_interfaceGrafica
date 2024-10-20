@@ -26,7 +26,6 @@ public class TelaInicial extends JPanel {
 	private final JButton btn_jogar = new JButton("JOGAR");
 	private final JButton btn_sair = new JButton("SAIR");
 	private Image background;
-	private final JLabel lbl_o = new JLabel("");
 
 	public TelaInicial() {
 		try {
@@ -47,16 +46,12 @@ public class TelaInicial extends JPanel {
 		setBounds(100, 100, 800, 600);
 		setBackground(new Color(245, 239, 231));
 		setLayout(new MigLayout("", "[grow][grow][grow]", "[grow][grow][grow]"));
-
-		add(this.lbl_o, "cell 0 1,grow");
 		this.panel.setOpaque(false);
 		this.panel.setBackground(new Color(205, 194, 165));
-
 		add(this.panel, "cell 1 1,grow");
 		this.panel.setLayout(new MigLayout("", "[grow][][grow]", "[grow][][grow][][grow][][grow]"));
 		this.lbl_jogo.setForeground(new Color(115, 145, 185));
 		this.lbl_jogo.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 60));
-
 		this.panel.add(this.lbl_jogo, "flowy,cell 1 1,alignx center,aligny bottom");
 		this.btn_jogar.setOpaque(false);
 		this.btn_jogar.setBackground(new Color(245, 239, 231));
@@ -75,7 +70,6 @@ public class TelaInicial extends JPanel {
 			}
 		});
 		this.btn_jogar.setFont(new Font("Segoe UI", Font.BOLD, 22));
-
 		this.panel.add(this.btn_jogar, "cell 1 3,alignx center,aligny center");
 		this.btn_sair.setContentAreaFilled(false);
 		this.btn_sair.setMinimumSize(new Dimension(45, 20));
@@ -96,13 +90,10 @@ public class TelaInicial extends JPanel {
 			}
 		});
 		this.btn_sair.setFont(new Font("Segoe UI", Font.BOLD, 18));
-
 		this.panel.add(this.btn_sair, "cell 1 5,alignx center,aligny center");
 		this.lbl_velha.setForeground(new Color(79, 112, 156));
 		this.lbl_velha.setFont(new Font("Segoe UI Black", Font.PLAIN, 90));
-
 		this.panel.add(this.lbl_velha, "cell 1 1,alignx center,aligny top");
-
 		efeitoMouseOver();
 	}
 
@@ -130,7 +121,5 @@ public class TelaInicial extends JPanel {
 	protected void abreTelaMenu() {
 		Janela.frame.setContentPane(new TelaMenu());
 		Janela.frame.setVisible(true);
-
 	}
-
 }

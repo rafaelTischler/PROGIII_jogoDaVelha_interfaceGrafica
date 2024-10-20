@@ -14,7 +14,7 @@ public class Tabuleiro {
 			}
 		}
 		tentativas = 0;
-		vencedor = null;
+		vencedor = "[ ]";
 	}
 
 	public Tabuleiro(Tabuleiro tab) {
@@ -43,17 +43,24 @@ public class Tabuleiro {
 	}
 
 	public void imprimeTabuleiro() {
+		System.out.println("-----------------------------------------------------------------------------------");
 		for (int i = 0; i < tabuleiro.length; i++) {
 			for (int j = 0; j < tabuleiro[i].length; j++) {
 				System.out.print(tabuleiro[i][j]);
 			}
 			System.out.println("");
 		}
+		System.out.println("-----------------------------------------------------------------------------------");
 	}
 
 	public void realizaJogada(int i, int j, Jogador jogador) {
 		if (i < 0 || i >= 3 || j < 0 || j >= 3) {
-			System.out.println("\tDigite uma posição VÁLIDA!");
+			System.out.println("\tDigite uma POSIÇÃO VÁLIDA!");
+			return;
+		}
+		if (jogador == null) {
+			tabuleiro[i][j] = "[ ]";
+			tentativas--;
 			return;
 		}
 		if (!"[ ]".equals(tabuleiro[i][j])) {
@@ -63,7 +70,8 @@ public class Tabuleiro {
 			return;
 		}
 		tabuleiro[i][j] = "[" + jogador.getSimbolo() + "]";
-		System.out.println("Jogador " + jogador.getNome() + " jogou na posição: " + i + ", " + j);
+		System.out.println("Jogador " + jogador.getNome() + " jogou na posição (" + i + ", " + j + ")");
+		tentativas++;
 	}
 
 	public boolean verificaPosicao(int l, int c) {
@@ -117,7 +125,6 @@ public class Tabuleiro {
 			}
 		}
 		if (cont == 9 && !verificaVencedor()) {
-			System.out.println("Empate!");
 			return true;
 		}
 		return false;

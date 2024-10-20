@@ -33,14 +33,13 @@ public class TelaMenu extends JPanel {
 	private final JLabel lbl_jogo_1 = new JLabel("VELHA");
 	private final JLabel lbl_setaEsq = new JLabel("");
 	private final JLabel lbl_setaDir = new JLabel("");
-	private Image background;
 	private final JButton btn_voltar = new JButton("VOLTAR");
 	private final JToggleButton tglbtn_o = new JToggleButton("");
 	private final JToggleButton tglbtn_x = new JToggleButton("");
-
-	protected Jogador jogador = new Jogador();
-	protected Jogador pc = new Jogador();
+	private Image background;
 	private Tabuleiro tab = new Tabuleiro();
+	private Jogador jogador = new Jogador();
+	private Jogador pc = new Jogador();
 
 	public TelaMenu() {
 		try {
@@ -51,7 +50,6 @@ public class TelaMenu extends JPanel {
 		initComponents();
 		jogador.setTabuleiro(tab);
 		pc.setTabuleiro(tab);
-
 	}
 
 	@Override
@@ -106,34 +104,27 @@ public class TelaMenu extends JPanel {
 		this.tglbtn_o.setFocusable(false);
 		this.tglbtn_o.setContentAreaFilled(false);
 		this.tglbtn_o.setBorder(null);
-
 		add(this.tglbtn_o, "cell 0 1,grow");
-
 		JPanel panel = new JPanel();
 		panel.setOpaque(false);
 		panel.setBackground(new Color(245, 239, 231));
 		add(panel, "cell 1 1,alignx center,growy");
 		panel.setLayout(new MigLayout("", "[grow][][][][grow]", "[grow][][][grow][][][][][grow][][grow][][grow]"));
-
 		JLabel lbl_jogo = new JLabel("JOGO DA");
 		lbl_jogo.setForeground(new Color(115, 145, 185));
 		lbl_jogo.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 30));
 		panel.add(lbl_jogo, "cell 2 1,alignx center,aligny center");
 		this.lbl_jogo_1.setForeground(new Color(79, 112, 156));
 		this.lbl_jogo_1.setFont(new Font("Segoe UI Black", Font.PLAIN, 45));
-
 		panel.add(this.lbl_jogo_1, "cell 2 2,alignx center,aligny center");
 		this.lbl_nome.setForeground(new Color(115, 145, 185));
 		this.lbl_nome.setFont(new Font("Segoe UI", Font.BOLD, 18));
 		panel.add(this.lbl_nome, "cell 2 4,alignx center,aligny center");
-
 		this.edit_nome.setHorizontalAlignment(SwingConstants.CENTER);
 		this.edit_nome.setForeground(new Color(145, 168, 200));
 		this.edit_nome.setFont(new Font("Segoe UI Semibold", Font.PLAIN, 16));
 		panel.add(this.edit_nome, "cell 2 5,growx,aligny center");
-
 		panel.add(this.lbl_setaEsq, "cell 0 7,alignx right,aligny center");
-
 		this.lbl_setaEsq.setIcon(new javax.swing.ImageIcon(getClass().getResource("/jogoDaVelha/left_arrow.png")));
 		this.lbl_simbolo.setForeground(new Color(115, 145, 185));
 		this.lbl_simbolo.setFont(new Font("Segoe UI", Font.BOLD, 18));
@@ -146,19 +137,23 @@ public class TelaMenu extends JPanel {
 		this.btn_iniciar.setFocusTraversalKeysEnabled(false);
 		this.btn_iniciar.setFocusPainted(false);
 		this.btn_iniciar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-
 		this.btn_iniciar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (!edit_nome.getText().isEmpty()) {
-					jogador.setNome(edit_nome.getText());
+					jogador.setNome(edit_nome.getText().toUpperCase());
 					if (tglbtn_x.isSelected()) {
 						jogador.setSimbolo("X");
 						pc.setSimbolo("O");
+						System.out.println("O jogador " + jogador.getNome() + " selecionou o símbolo X");
 					} else if (tglbtn_o.isSelected()) {
 						jogador.setSimbolo("O");
 						pc.setSimbolo("X");
+						System.out.println("O jogador " + jogador.getNome() + " selecionou o símbolo O");
+					} else {
+						JOptionPane.showMessageDialog(TelaMenu.this, "Por favor, selecione um símbolo!");
+						return;
 					}
-					pc.setNome("Computador");
+					pc.setNome("COMPUTADOR");
 					pc.setPc(true);
 					abrirTelaJogo();
 				} else {
@@ -166,7 +161,6 @@ public class TelaMenu extends JPanel {
 				}
 			}
 		});
-
 		panel.add(this.lbl_setaDir, "cell 4 7,alignx left,aligny center");
 		this.lbl_setaDir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/jogoDaVelha/right_arrow.png")));
 		panel.add(this.btn_iniciar, "cell 2 9,growx,aligny center");
@@ -185,9 +179,7 @@ public class TelaMenu extends JPanel {
 		this.btn_voltar.setFocusTraversalKeysEnabled(false);
 		this.btn_voltar.setFocusPainted(false);
 		this.btn_voltar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-
 		panel.add(this.btn_voltar, "cell 2 11,alignx center,aligny center");
-
 		efeitoMouseOver();
 		this.buttonGroup.add(this.tglbtn_x);
 		this.tglbtn_x.addActionListener(new ActionListener() {
@@ -231,7 +223,6 @@ public class TelaMenu extends JPanel {
 			}
 		});
 		this.tglbtn_x.setContentAreaFilled(false);
-
 		add(this.tglbtn_x, "cell 2 1,grow");
 	}
 
@@ -266,5 +257,4 @@ public class TelaMenu extends JPanel {
 		Janela.frame.setContentPane(new TelaJogo(jogador, pc, tab));
 		Janela.frame.setVisible(true);
 	}
-
 }

@@ -21,6 +21,11 @@ public class Janela extends JFrame {
 				}
 			}
 		});
+		System.out.println("              Instituto Federal Farroupilha - Campus São Vicente do Sul");
+		System.out.println("                Tecnologia em Análise e Desenvolvimento de Sistemas");
+		System.out.println("Disciplina: Programação III     Professor: Gustavo Rissetti       Data: 20/10/2024");
+		System.out.println("Aluno: Rafael Müller Tischler                                        Turma: ADS 19");
+		System.out.println("\n             TRABALHO PRÁTICO 2 - JOGO DA VELHA COM INTERFACE GRÁFICA\n");
 	}
 
 	public Janela() {
@@ -33,7 +38,5 @@ public class Janela extends JFrame {
 		setBounds(100, 100, 800, 600);
 		setLocationRelativeTo(null);
 		setResizable(false);
-
 	}
-
 }

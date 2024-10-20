@@ -23,9 +23,7 @@ import java.awt.event.ActionEvent;
 public class TelaJogo extends JPanel {
 
 	private static final long serialVersionUID = 1L;
-
 	private JPanel painel;
-	private Image background;
 	private final JLabel lbl_11 = new JLabel("");
 	private final JLabel lbl_12 = new JLabel("");
 	private final JLabel lbl_13 = new JLabel("");
@@ -37,20 +35,20 @@ public class TelaJogo extends JPanel {
 	private final JLabel lbl_33 = new JLabel("");
 	private final JButton btn_desfazer = new JButton("");
 	private final JButton btn_menu = new JButton("MENU");
+	private ImageIcon O = new ImageIcon(getClass().getResource("/jogoDaVelha/O.png"));
+	private ImageIcon X = new ImageIcon(getClass().getResource("/jogoDaVelha/X.png"));
 	protected LinkedList<JLabel> lista = new LinkedList<JLabel>();
 	protected Stack<Tabuleiro> tabPilha = new Stack<Tabuleiro>();
 	protected Stack<Integer> intPilha = new Stack<Integer>();
+	private Image background;
+	private Tabuleiro tab = new Tabuleiro();
 	private Jogador jogador;
 	private Jogador pc;
-	private Tabuleiro tab = new Tabuleiro();
-	private ImageIcon O = new ImageIcon(getClass().getResource("/jogoDaVelha/O.png"));
-	private ImageIcon X = new ImageIcon(getClass().getResource("/jogoDaVelha/X.png"));
 
 	public TelaJogo(Jogador jogador, Jogador pc, Tabuleiro tab) {
 		this.jogador = jogador;
 		this.pc = pc;
 		this.tab = tab;
-
 		if (!java.beans.Beans.isDesignTime()) {
 			try {
 				background = ImageIO.read(getClass().getResource("background_clear.png"));
@@ -82,9 +80,10 @@ public class TelaJogo extends JPanel {
 		this.btn_desfazer.setFocusable(false);
 		this.btn_desfazer.setFocusPainted(false);
 		this.btn_desfazer.setFocusTraversalKeysEnabled(false);
-
 		this.btn_desfazer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				System.out.println("*Jogada DESFEITA*");
+				desfazerJogada();
 			}
 		});
 		this.btn_desfazer.setContentAreaFilled(false);
@@ -113,7 +112,6 @@ public class TelaJogo extends JPanel {
 		painel.add(lbl_32, "cell 1 2,grow");
 		lbl_33.setName("3,3");
 		painel.add(lbl_33, "cell 2 2,grow");
-
 		lista.add(lbl_11);
 		lista.add(lbl_12);
 		lista.add(lbl_13);
@@ -123,7 +121,6 @@ public class TelaJogo extends JPanel {
 		lista.add(lbl_31);
 		lista.add(lbl_32);
 		lista.add(lbl_33);
-
 		efeitoMouseOver();
 		this.btn_menu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -146,7 +143,6 @@ public class TelaJogo extends JPanel {
 	protected void abrirTelaMenu() {
 		Janela.frame.setContentPane(new TelaMenu());
 		Janela.frame.setVisible(true);
-
 	}
 
 	private void efeitoMouseOver() {
@@ -169,7 +165,6 @@ public class TelaJogo extends JPanel {
 				btn_desfazer.setIcon(new javax.swing.ImageIcon(getClass().getResource("/jogoDaVelha/undo_arrow.png")));
 			}
 		});
-
 	}
 
 	public class PainelTabela extends JPanel {
@@ -215,10 +210,8 @@ public class TelaJogo extends JPanel {
 					jogador.fazerJogada(linha, coluna, jogador);
 					if (jogador.getSimbolo().equals("X")) {
 						label.setIcon(X);
-						System.out.println("Escolheu X");
 					} else if (jogador.getSimbolo().equals("O")) {
 						label.setIcon(O);
-						System.out.println("Escolheu O");
 					}
 					tabPilha.push(new Tabuleiro(tab));
 					intPilha.push(linha);
@@ -226,18 +219,18 @@ public class TelaJogo extends JPanel {
 					if (!tab.verificaVencedor() && !tab.verificaEmpate()) {
 						jogarcomputador();
 					} else {
-						if (tab.getVencedor().equals("[" + jogador.getSimbolo() + "]")) {
+						if (tab.verificaEmpate()) {
+							System.out.println("Empate!");
+							JOptionPane.showMessageDialog(this, "Empate!");
+							reiniciarJogo();
+						} else if (tab.getVencedor().equals("[" + jogador.getSimbolo() + "]")) {
 							System.out.println("Vencedor: " + jogador.getNome());
 							JOptionPane.showMessageDialog(this, "Vencedor: " + jogador.getNome());
-						} else {
-							if (tab.getVencedor().equals("[" + pc.getSimbolo() + "]")) {
-								System.out.println("Vencedor: " + pc.getNome());
-								JOptionPane.showMessageDialog(this, "Vencedor: " + pc.getNome());
-							} else {
-								if (tab.verificaEmpate()) {
-									JOptionPane.showMessageDialog(this, "Empate!");
-								}
-							}
+							reiniciarJogo();
+						} else if (tab.getVencedor().equals("[" + pc.getSimbolo() + "]")) {
+							System.out.println("Vencedor: " + pc.getNome());
+							JOptionPane.showMessageDialog(this, "Vencedor: " + pc.getNome());
+							reiniciarJogo();
 						}
 					}
 				}
@@ -252,11 +245,11 @@ public class TelaJogo extends JPanel {
 			coluna = tab.gerarNumAleatorio();
 		} while (!tab.verificaPosicao(linha, coluna));
 		tab.realizaJogada(linha, coluna, pc);
-		String n = "";
-		n += (linha + 1) + ",";
-		n += (coluna + 1);
+		String celula = "";
+		celula += (linha + 1) + ",";
+		celula += (coluna + 1);
 		for (JLabel labelPc : lista) {
-			if (n.equals(labelPc.getName())) {
+			if (celula.equals(labelPc.getName())) {
 				if (pc.getSimbolo().equals("X")) {
 					labelPc.setIcon(X);
 				} else if (pc.getSimbolo().equals("O")) {
@@ -282,30 +275,39 @@ public class TelaJogo extends JPanel {
 	}
 
 	private void desfazerJogada() {
-		if ((intPilha.size() >= 4 && (!tab.verificaVencedor()))) {
+		if ((intPilha.size() >= 4 && !tab.verificaVencedor())) {
 			int coluna = intPilha.pop();
 			int linha = intPilha.pop();
 			tab.realizaJogada(linha, coluna, null);
-			String n = "";
-			n += linha + ",";
-			n += coluna;
+			String celula = (linha + 1) + "," + (coluna + 1);
 			for (JLabel label : lista) {
-				if (n.equals(label.getName())) {
+				if (celula.equals(label.getName())) {
 					label.setIcon(null);
 				}
 			}
-			coluna = intPilha.pop();
-			linha = intPilha.pop();
-			tab.realizaJogada(linha, coluna, null);
-			n = "";
-			n += linha + ",";
-			n += coluna;
-			for (JLabel label : lista) {
-				if (n.equals(label.getName())) {
-					label.setIcon(null);
+			if (!intPilha.isEmpty()) {
+				coluna = intPilha.pop();
+				linha = intPilha.pop();
+				tab.realizaJogada(linha, coluna, null);
+				celula = (linha + 1) + "," + (coluna + 1);
+				for (JLabel label : lista) {
+					if (celula.equals(label.getName())) {
+						label.setIcon(null);
+					}
 				}
 			}
 			tab.imprimeTabuleiro();
+		}
+	}
+
+	private void reiniciarJogo() {
+		int response = JOptionPane.showConfirmDialog(this, "Você gostaria de iniciar um novo jogo?", "Novo Jogo",
+				JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+		if (response == JOptionPane.YES_OPTION) {
+			abrirTelaMenu();
+			for (JLabel label : lista) {
+				label.setIcon(null);
+			}
 		}
 	}
 }
