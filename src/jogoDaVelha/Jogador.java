@@ -1,23 +1,23 @@
 package jogoDaVelha;
 
 public class Jogador {
-
 	private String nome;
 	private String simbolo;
+	protected Tabuleiro tab;
 	private boolean pc = false;
 
-	public Jogador(String nome, String simbolo) {
+	public Jogador(String nome, String simbolo, Tabuleiro tab) {
 		if (!this.testaNome(nome)) {
 			throw new IllegalArgumentException("Por favor, digite seu nome!");
 		} else {
 			this.nome = nome;
 		}
-
 		if (!this.testaSimbolo(simbolo)) {
 			throw new IllegalArgumentException("Digite um símbolo válido (X ou O)");
 		} else {
 			this.simbolo = simbolo;
 		}
+		this.tab = tab;
 	}
 
 	public Jogador() {
@@ -58,19 +58,23 @@ public class Jogador {
 	}
 
 	public boolean testaSimbolo(String simbolo) {
-		if (simbolo.equals("X") || simbolo.equals("O")) {
-			return true;
-		} else {
-			return false;
-		}
+		return simbolo.equals("X") || simbolo.equals("O");
 	}
 
 	public boolean testaNome(String nome) {
-		if (!(nome == null) || !nome.trim().isEmpty()) {
-			return true;
-		} else {
-			return false;
+		return nome != null && !nome.trim().isEmpty();
+	}
+
+	public void fazerJogada(int linha, int coluna, Jogador jogador) {
+		if (this.tab == null) {
+			throw new NullPointerException("Tabuleiro não inicializado");
+		}
+		if (tab.verificaPosicao(linha, coluna)) {
+			tab.realizaJogada(linha, coluna, jogador);
 		}
 	}
 
+	public void setTabuleiro(Tabuleiro tab) {
+		this.tab = tab;
+	}
 }

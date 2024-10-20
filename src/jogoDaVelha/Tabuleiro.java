@@ -17,6 +17,15 @@ public class Tabuleiro {
 		vencedor = null;
 	}
 
+	public Tabuleiro(Tabuleiro tab) {
+		this();
+		for (int i = 0; i <= 2; i++) {
+			for (int j = 0; j <= 2; j++) {
+				this.tabuleiro[i][j] = tab.tabuleiro[i][j];
+			}
+		}
+	}
+
 	public String[][] getTabuleiro() {
 		return tabuleiro;
 	}
@@ -42,20 +51,26 @@ public class Tabuleiro {
 		}
 	}
 
-	public boolean realizaJogada(int i, int j, Jogador jogador) {
+	public void realizaJogada(int i, int j, Jogador jogador) {
 		if (i < 0 || i >= 3 || j < 0 || j >= 3) {
 			System.out.println("\tDigite uma posição VÁLIDA!");
-			return false;
+			return;
 		}
 		if (!"[ ]".equals(tabuleiro[i][j])) {
 			if (!jogador.isPc()) {
 				System.out.println("\tA posição já está OCUPADA!");
 			}
-			return false;
+			return;
 		}
 		tabuleiro[i][j] = "[" + jogador.getSimbolo() + "]";
-		tentativas++;
-		return true;
+		System.out.println("Jogador " + jogador.getNome() + " jogou na posição: " + i + ", " + j);
+	}
+
+	public boolean verificaPosicao(int l, int c) {
+		if (l >= 0 && l < 3 && c >= 0 && c < 3 && tabuleiro[l][c].equals("[ ]")) {
+			return true;
+		}
+		return false;
 	}
 
 	public boolean verificaVencedor() {
@@ -90,6 +105,22 @@ public class Tabuleiro {
 		} else {
 			return false;
 		}
+	}
+
+	public boolean verificaEmpate() {
+		int cont = 0;
+		for (int i = 0; i <= 2; i++) {
+			for (int j = 0; j <= 2; j++) {
+				if (!this.tabuleiro[i][j].equals("[ ]")) {
+					cont++;
+				}
+			}
+		}
+		if (cont == 9 && !verificaVencedor()) {
+			System.out.println("Empate!");
+			return true;
+		}
+		return false;
 	}
 
 	public boolean equals(Object objeto) {

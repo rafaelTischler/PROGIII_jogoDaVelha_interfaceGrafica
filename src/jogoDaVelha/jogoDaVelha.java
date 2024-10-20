@@ -1,4 +1,4 @@
-package jogoDaVelha;
+/*package jogoDaVelha;
 
 import java.util.Scanner;
 import java.util.Stack;
@@ -91,3 +91,4 @@ public class jogoDaVelha {
 
 	}
 }
+*/

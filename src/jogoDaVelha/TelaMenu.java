@@ -38,6 +38,10 @@ public class TelaMenu extends JPanel {
 	private final JToggleButton tglbtn_o = new JToggleButton("");
 	private final JToggleButton tglbtn_x = new JToggleButton("");
 
+	protected Jogador jogador = new Jogador();
+	protected Jogador pc = new Jogador();
+	private Tabuleiro tab = new Tabuleiro();
+
 	public TelaMenu() {
 		try {
 			background = ImageIO.read(getClass().getResource("background.png"));
@@ -45,6 +49,8 @@ public class TelaMenu extends JPanel {
 			e.printStackTrace();
 		}
 		initComponents();
+		jogador.setTabuleiro(tab);
+		pc.setTabuleiro(tab);
 
 	}
 
@@ -63,7 +69,7 @@ public class TelaMenu extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				if (tglbtn_o.isSelected()) {
 					try {
-						background = ImageIO.read(getClass().getResource("background_o_selected.png"));
+						background = ImageIO.read(getClass().getResource("background_o.png"));
 					} catch (IOException e1) {
 						e1.printStackTrace();
 					}
@@ -144,6 +150,16 @@ public class TelaMenu extends JPanel {
 		this.btn_iniciar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (!edit_nome.getText().isEmpty()) {
+					jogador.setNome(edit_nome.getText());
+					if (tglbtn_x.isSelected()) {
+						jogador.setSimbolo("X");
+						pc.setSimbolo("O");
+					} else if (tglbtn_o.isSelected()) {
+						jogador.setSimbolo("O");
+						pc.setSimbolo("X");
+					}
+					pc.setNome("Computador");
+					pc.setPc(true);
 					abrirTelaJogo();
 				} else {
 					JOptionPane.showMessageDialog(TelaMenu.this, "Por favor, insira o nome do jogador!");
@@ -178,7 +194,7 @@ public class TelaMenu extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				if (tglbtn_x.isSelected()) {
 					try {
-						background = ImageIO.read(getClass().getResource("background_x_selected.png"));
+						background = ImageIO.read(getClass().getResource("background_x.png"));
 					} catch (IOException e1) {
 						e1.printStackTrace();
 					}
@@ -247,7 +263,7 @@ public class TelaMenu extends JPanel {
 	}
 
 	protected void abrirTelaJogo() {
-		Janela.frame.setContentPane(new TelaJogo());
+		Janela.frame.setContentPane(new TelaJogo(jogador, pc, tab));
 		Janela.frame.setVisible(true);
 	}
 
